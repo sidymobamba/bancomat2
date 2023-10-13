@@ -171,6 +171,7 @@ namespace bancomat2
             return false; // Autenticazione fallita
         }
 
+
         static void MenuPrincipale(bancomatEntities context, Utenti utenteAutenticato)
         {
             bool continua = true;
@@ -217,6 +218,50 @@ namespace bancomat2
                 }
             }
         }
+
+        static void MostraMenuPrincipale(bancomatEntities context, Utenti utenteAutenticato)
+        {
+            while (true)
+            {
+                Console.WriteLine("\nMenu Principale:");
+                Console.WriteLine("1. Versamento");
+                Console.WriteLine("2. Report Saldo");
+                Console.WriteLine("3. Prelievo");
+                Console.WriteLine("4. Registro Operazioni");
+                Console.WriteLine("5. Logout");
+                Console.Write("Scelta: ");
+
+                if (int.TryParse(Console.ReadLine(), out int scelta))
+                {
+                    switch (scelta)
+                    {
+                        case 1:
+                            EseguiVersamento(context, utenteAutenticato);
+                            break;
+                        case 2:
+                            MostraReportSaldo(context, utenteAutenticato);
+                            break;
+                        case 3:
+                            EseguiPrelievo(context, utenteAutenticato);
+                            break;
+                        case 4:
+                            MostraRegistroOperazioni(context, utenteAutenticato);
+                            break;
+                        case 5:
+                            Console.WriteLine("Logout effettuato.");
+                            return; // Uscita dal menu principale
+                        default:
+                            Console.WriteLine("Scelta non valida.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Scelta non valida.");
+                }
+            }
+        }
+
 
         static void EseguiVersamento(bancomatEntities context, Utenti utenteAutenticato)
         {
@@ -267,6 +312,9 @@ namespace bancomat2
             }
         }
 
+
+
+
         static void MostraReportSaldo(bancomatEntities context, Utenti utenteAutenticato)
         {
             // Cerca il conto corrente dell'utente nel database
@@ -284,6 +332,8 @@ namespace bancomat2
                 Console.WriteLine("Conto corrente non trovato.");
             }
         }
+
+
 
         static void EseguiPrelievo(bancomatEntities context, Utenti utenteAutenticato)
         {
@@ -340,6 +390,8 @@ namespace bancomat2
                 Console.WriteLine("Importo non valido.");
             }
         }
+
+
 
         static void MostraRegistroOperazioni(bancomatEntities context, Utenti utenteAutenticato)
         {
